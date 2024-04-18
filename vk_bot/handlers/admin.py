@@ -11,12 +11,21 @@ config = configparser.ConfigParser()
 
 admin_labeler = BotLabeler()
 
+def isAdmin(user_id):
+    admin_IDes = [int(key) for key in admin["ADMINS"]]
+    if user_id in admin_IDes:
+        return True
+    return False
+
 @admin_labeler.message(CommandRule("конфиг инфо", VK_PREFIXES))
 async def reactions_handler(message):
     config.read("config.ini")
 
-    answer = ""
+    answer = "Вот информация о конфиге:\n"
     for key in config["VK"]:
+        if key == 'token':
+            answer += f"token=...\n"
+            continue
         answer += f"{key}= {config["VK"][key]}\n"
         print(answer)
     await message.answer(answer, reply_to=isReplyTo(message.id))
@@ -24,10 +33,8 @@ async def reactions_handler(message):
 @admin_labeler.message(CommandRule("конфиг изменить", VK_PREFIXES, 2))
 async def reactions_handler(message, args: tuple):
     admin.read("data/admins.ini")
-    admin["ADMINS"]
 
-    admin_IDes = [int(key) for key in admin["ADMINS"]]
-    if message.from_id in admin_IDes:
+    if isAdmin(message.from_id):
         config.read("config.ini")
         if args[0] in [key for key in config["VK"]]:
             config["VK"][args[0]] = args[1]
