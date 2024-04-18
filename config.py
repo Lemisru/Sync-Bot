@@ -6,6 +6,7 @@ import configparser
 config_parser = configparser.ConfigParser()
 labeler = BotLabeler()
 
+
 config_parser.read("config.ini")
 
 API = API(config_parser["VK"]["token"])
