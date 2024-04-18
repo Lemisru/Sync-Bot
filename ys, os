@@ -1,0 +1,30 @@
+[33mcommit 326637d3bccafa941646364cf7413258d4d1e54a[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m
+Author: Lemisru <maromaksi10@gmail.com>
+Date:   Wed Apr 17 18:54:49 2024 +0300
+
+    разделение кода, два типа сообщений, улучшение структуры проекта
+
+[33mcommit 73f65390000f2305e0eeda93735b035690031488[m
+Author: Lemis <maromaksi10@gmail.com>
+Date:   Tue Apr 16 20:53:36 2024 +0300
+
+    Merge remote-tracking branch 'origin/main'
+
+[33mcommit 5ed29ffa290511e9a540975f897a42a8e2ffd5c8[m
+Merge: 0ba51bc c24ffc5
+Author: Lemis <maromaksi10@gmail.com>
+Date:   Tue Apr 16 10:25:17 2024 +0300
+
+    update code
+
+[33mcommit c24ffc59c6d98063de2f6ae5e1a745c0a64297e2[m
+Author: Lemisru <98613400+Lemisru@users.noreply.github.com>
+Date:   Sun Apr 14 21:20:39 2024 +0300
+
+    Initial commit
+
+[33mcommit 0ba51bc8b859e060f8f9429b36c23de572894366[m
+Author: Lemis <maromaksi10@gmail.com>
+Date:   Sun Apr 14 21:16:13 2024 +0300
+
+    begin

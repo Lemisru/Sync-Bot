@@ -1,16 +1,16 @@
-from vkbottle.bot import Bot
+from vkbottle.bot import Bot, Message
+from vkbottle.dispatch.rules.base import CommandRule
 
-import sys, os
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+from vk_bot.isReplyTo import isReplyTo
+from config import VK_PREFIXES, API, labeler
 
-from config import API, state_dispenser, labeler
-from handlers import reactions_labeler
+from vk_bot.handlers.reactions import *
+from vk_bot.handlers.admin import *
 
 labeler.load(reactions_labeler)
+labeler.load(admin_labeler)
 
-bot = Bot(api=API, 
-          labeler=labeler, 
-          state_dispenser=state_dispenser)
+bot = Bot(api=API, labeler=labeler)
 
-if __name__ == "__main__":
+def vk_start():
     bot.run_forever()
