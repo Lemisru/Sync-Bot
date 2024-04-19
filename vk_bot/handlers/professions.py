@@ -21,6 +21,6 @@ async def professions_handler(message):
     user = await vk_bot.getBot().api.users.get(message.from_id)
     answer = f"✅Сегодня [id{message.from_id}|{user[0].first_name} {user[0].last_name}] "
     answer += f"устроился на новую работу👷‍♂: \n\n{random.choice(professions)}!\n\n"
-    answer += f"💰Зарплата {random.randint(1,40)*5} 000₽/мес.\n 📊{random.choice(graphics)}.\n\n 🎆Поздравляем!✨🎉"
+    answer += f"💰Зарплата {random.randint(1,40)*5} 000₽/мес.\n 📊{random.choice(graphics)}.\n\n 🎆НУ ЕСТЬ ЖЕ НАЛИВАЙ!✨🎉"
 
     await message.answer(answer, reply_to=isReplyTo(message.id))

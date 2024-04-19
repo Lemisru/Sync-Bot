@@ -1,15 +1,23 @@
 from vkbottle.bot import Bot
-from vkbottle.dispatch.rules.base import CommandRule
 
-from config import API, labeler
+from config import *
+
+import vk_bot.handlers.admin as admin
 
 import vk_bot.handlers.reactions as reactions
-import vk_bot.handlers.admin as admin
+import vk_bot.handlers.articles as articles
 import vk_bot.handlers.professions as professions
 
-labeler.load(reactions.reactions_labeler)
+from loguru import logger
+import sys
+logger.remove()
+logger.add(sys.stderr, level="INFO")
+
 labeler.load(admin.admin_labeler)
+
+labeler.load(reactions.reactions_labeler)
 labeler.load(professions.professions_labeler)
+labeler.load(articles.articles_labeler)
 
 bot = Bot(api=API, labeler=labeler)
 
