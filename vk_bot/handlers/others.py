@@ -6,6 +6,11 @@ from vk_bot.isReplyTo import isReplyTo
 
 others_labeler = BotLabeler()
 
+@others_labeler.message(CommandRule("помощь", VK_PREFIXES))
+async def others_handler(message):
+    answer =  "⚙ Полный список команд доступен по ссылке: https://vk.com/@async_bot-commands"
+    await message.answer(answer, reply_to=isReplyTo(message.id))
+
 @others_labeler.message(CommandRule("пинг", VK_PREFIXES))
 async def others_handler(message):
     await message.answer("понг", reply_to=isReplyTo(message.id))
