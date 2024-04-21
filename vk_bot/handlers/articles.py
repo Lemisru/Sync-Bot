@@ -20,7 +20,7 @@ def getArticlesList(file_path: str) -> list:
     return output
 
 def createMessage(user_data: list, type, num, text, punishment) -> str:
-    answer = f"🤷‍♂Сегодня [id{user_data[0]}|{user_data[1]} {user_data[1]}] "
+    answer = f"🤷‍♂Сегодня [id{user_data[0]}|{user_data[1]} {user_data[2]}] "
     answer += f"приговаривается к  статье {num} {type} - {text}.\n\n"
     answer += f"👮‍♂Наказание - {punishment}.\n\n 🎆Мусора бляди!✨🎉"
 
@@ -39,7 +39,7 @@ async def articles_handler(message):
     await message.answer(answer, reply_to=isReplyTo(message.id))
 
 @articles_labeler.message(CommandRule("моя статья ук", VK_PREFIXES))
-async def articles_handler(message):
+async def pdd_articles_handler(message):
     user = await vk_bot.getBot().api.users.get(message.from_id)
     article = random.choice(getArticlesList(types['УК РФ']))
 
@@ -48,7 +48,7 @@ async def articles_handler(message):
     await message.answer(answer, reply_to=isReplyTo(message.id))
 
 @articles_labeler.message(CommandRule("моя статья пдд", VK_PREFIXES))
-async def articles_handler(message):
+async def uk_articles_handler(message):
     user = await vk_bot.getBot().api.users.get(message.from_id)
     article = random.choice(getArticlesList(types['🚗ПДД РФ🚗']))
 
