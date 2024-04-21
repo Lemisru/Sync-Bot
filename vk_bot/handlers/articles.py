@@ -10,7 +10,7 @@ import vk_bot.vk_bot as vk_bot
 
 articles_labeler = BotLabeler()
 
-def getArticlesList(file_path: str) -> list:
+def getArticlesData(file_path: str) -> list:
     output = []
 
     with open(file_path, 'r', encoding="utf-8") as f:
@@ -19,39 +19,57 @@ def getArticlesList(file_path: str) -> list:
             output.append(line)
     return output
 
-def createMessage(user_data: list, type, num, text, punishment) -> str:
-    answer = f"🤷‍♂Сегодня [id{user_data[0]}|{user_data[1]} {user_data[2]}] "
-    answer += f"приговаривается к  статье {num} {type} - {text}.\n\n"
-    answer += f"👮‍♂Наказание - {punishment}.\n\n 🎆Мусора бляди!✨🎉"
+def createMessage(ping: str, type, num, text, punishment) -> str:
+    answer = \
+        f"""🤷‍♂Сегодня {ping}
+            приговаривается к  статье {num} {type} - {text}.
+
+            👮‍♂Наказание - {punishment}.
+            
+            🎆Мусора бляди!✨🎉"
+            """
 
     return answer
 
-types = {"🚗ПДД РФ🚗": "data/articles/pdd.txt", "УК РФ": "data/articles/uk.txt"}
+article_types = {"🚗ПДД РФ🚗": "data/articles/pdd.txt", "УК РФ": "data/articles/uk.txt"}
 
 @articles_labeler.message(CommandRule("моя статья", VK_PREFIXES))
 async def articles_handler(message):
-    user = await vk_bot.getBot().api.users.get(message.from_id)
-    article_type = random.choice(["🚗ПДД РФ🚗", "УК РФ"])
-    article_list = random.choice(getArticlesList(types[article_type]))
+    user = await vk_bot.bot.api.users.get(message.from_id)
+    ping = f"[{message.from_id}|{user[0].first_name} {user[0].last_name}]"
 
-    answer = createMessage([message.from_id, user[0].first_name, user[0].last_name], article_type, *article_list)
+    article_type = random.choice(list(article_types))
+    link = article_types[article_type]
+
+    article_list = random.choice(getArticlesData(link))
+
+    answer = createMessage(ping, article_type, *article_list)
 
     await message.answer(answer, reply_to=isReplyTo(message.id))
 
 @articles_labeler.message(CommandRule("моя статья ук", VK_PREFIXES))
 async def pdd_articles_handler(message):
-    user = await vk_bot.getBot().api.users.get(message.from_id)
-    article = random.choice(getArticlesList(types['УК РФ']))
+    user = await vk_bot.bot.api.users.get(message.from_id)
+    ping = f"[{message.from_id}|{user[0].first_name} {user[0].last_name}]"
 
-    answer = createMessage([message.from_id, user[0].first_name, user[0].last_name], "УК РФ", *article)
+    link = article_types["УК РФ"]
+
+    article_list = random.choice(getArticlesData(link))
+
+    answer = createMessage(ping, "УК РФ", *article_list)
 
     await message.answer(answer, reply_to=isReplyTo(message.id))
 
 @articles_labeler.message(CommandRule("моя статья пдд", VK_PREFIXES))
-async def uk_articles_handler(message):
-    user = await vk_bot.getBot().api.users.get(message.from_id)
-    article = random.choice(getArticlesList(types['🚗ПДД РФ🚗']))
 
-    answer = createMessage([message.from_id, user[0].first_name, user[0].last_name], "🚗ПДД РФ🚗", *article)
+async def uk_articles_handler(message):
+    user = await vk_bot.bot.api.users.get(message.from_id)
+    ping = f"[{message.from_id}|{user[0].first_name} {user[0].last_name}]"
+
+    link = article_types['🚗ПДД РФ🚗']
+
+    article_list = random.choice(getArticlesData(link))
+
+    answer = createMessage(ping, "🚗ПДД РФ🚗", *article_list)
 
     await message.answer(answer, reply_to=isReplyTo(message.id))
