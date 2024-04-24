@@ -1,4 +1,5 @@
 from vkbottle.dispatch.rules.base import CommandRule
+from vk_bot.AsyaCommandRule import AsyaCommandRule
 from vkbottle.bot import BotLabeler
 
 from config import VK_PREFIXES
@@ -19,7 +20,7 @@ def isAdmin(user_id):
         return True
     return False
 
-@admin_labeler.message(CommandRule("конфиг инфо", VK_PREFIXES))
+@admin_labeler.message(AsyaCommandRule(VK_PREFIXES, ["конфиг инфа", "настройки инфа", "админка инфа", "админ инфа"]))
 async def config_info_handler(message):
     config_parser.read("config.ini")
 
@@ -31,11 +32,8 @@ async def config_info_handler(message):
         answer += f"{key}= {config_parser["VK"][key]}\n"
     await message.answer(answer, reply_to=isReplyTo(message.id))
 
-@admin_labeler.message(CommandRule("конфиг изменить", VK_PREFIXES, 2))
-async def config_change_handler(message, args: tuple):
-    parameter = args[0]
-    value = args[1]
-
+@admin_labeler.message(AsyaCommandRule(VK_PREFIXES, ["конфиг изменить <parameter> <value>", "настройка изменить <parameter> <value>"]))
+async def config_change_handler(message, parameter, value):
     if not isAdmin(message.from_id):
         await message.answer("Без админки хуй тебе", reply_to=isReplyTo(message.id))
         return

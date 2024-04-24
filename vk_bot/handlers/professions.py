@@ -1,8 +1,10 @@
-from vkbottle.dispatch.rules.base import CommandRule
+from vk_bot.AsyaCommandRule import AsyaCommandRule
 from vkbottle.bot import BotLabeler
 
 from config import VK_PREFIXES
 from vk_bot.isReplyTo import isReplyTo
+
+from vk_bot.handlers.admin import isAdmin
 
 import random
 
@@ -16,7 +18,7 @@ with open("data/professions.txt", 'r', encoding="utf-8") as f:
 
 graphics = ["График '2 через 2'", "Скользящий график", "Удаленная работа", "График как пойдёт"]
 
-@professions_labeler.message(CommandRule("моя профессия", VK_PREFIXES))
+@professions_labeler.message(AsyaCommandRule(VK_PREFIXES, ["моя профессия", "моя работа", "профессия", "работа"]))
 async def professions_handler(message):
     user = await vk_bot.getBot().api.users.get(message.from_id)
     answer = (f"✅Сегодня [id{message.from_id}|{user[0].first_name} {user[0].last_name}] \n"
