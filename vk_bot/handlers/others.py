@@ -4,8 +4,6 @@ from vk_bot.AsyaCommandRule import AsyaCommandRule
 from config import VK_PREFIXES
 from vk_bot.isReplyTo import isReplyTo
 
-import random
-
 others_labeler = BotLabeler()
 
 @others_labeler.message(AsyaCommandRule(VK_PREFIXES, ["помощь", "команды"]))
@@ -19,6 +17,7 @@ async def others_handler(message):
 
 @others_labeler.message(AsyaCommandRule(VK_PREFIXES, ["скажи <text>","повтори <text>"]))
 async def others_handler(message, text):
+<<<<<<< HEAD
     await message.answer(text)
 
 @others_labeler.message(AsyaCommandRule(VK_PREFIXES, ["сделай русским <text>","русский <text>"]))
@@ -49,3 +48,6 @@ async def randint_handler(message, text):
                'Без сомнений','Возможно','Думаю нет','Думаю да']
     
     await message.answer(random.choice(phrases), reply_to=isReplyTo(message.id))
+=======
+    await message.answer(text)
+>>>>>>> parent of bfdca86 (little update)

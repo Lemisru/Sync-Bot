@@ -48,4 +48,4 @@ async def config_change_handler(message, parameter, value):
     with open('config.ini', 'w') as configfile:
         config_parser.write(configfile)
         
-    await message.answer(f"Конфиг {parameter} успешно поменял значение на {value}", reply_to=isReplyTo(message.id))
+    await message.answer("Конфиг успешно изменён", reply_to=isReplyTo(message.id))
