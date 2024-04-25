@@ -18,6 +18,25 @@ with open("data/professions.txt", 'r', encoding="utf-8") as f:
 
 graphics = ["График '2 через 2'", "Скользящий график", "Удаленная работа", "График как пойдёт"]
 
+@professions_labeler.message(AsyaCommandRule(VK_PREFIXES, ["профессия добавить <profession>","работа добавить <profession>",
+                                                           "добавить профессию <profession>", "добавить работу <profession>"]))
+async def professions_handler(message, profession):
+    if not isAdmin(message.from_id):
+        await message.answer("Без админки низя добавлять профессии", reply_to=isReplyTo(message.id))
+        return
+    
+    with open("data/professions.txt",'r') as f:
+        professions = [i.rstrip("\n") for i in f.readlines()]
+
+    if profession.title() in professions:
+        await message.answer(f"Профессия \"{profession.title()}\" уже есть в списке", reply_to=isReplyTo(message.id))
+        return
+
+    with open("data/professions.txt", 'a') as f:
+        f.write(f"\n{profession.title()}")
+
+    await message.answer(f"Профессия \"{profession.title()}\" успешно добавлена", reply_to=isReplyTo(message.id))
+
 @professions_labeler.message(AsyaCommandRule(VK_PREFIXES, ["моя профессия", "моя работа", "профессия", "работа"]))
 async def professions_handler(message):
     user = await vk_bot.getBot().api.users.get(message.from_id)
