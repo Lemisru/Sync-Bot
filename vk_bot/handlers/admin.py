@@ -29,7 +29,7 @@ async def config_info_handler(message):
         if key == 'token':
             answer += f"token=...\n"
             continue
-        answer += f"{key}= {config_parser["VK"][key]}\n"
+        answer += f"{key}= {config_parser['VK'][key]}\n"
     await message.answer(answer, reply_to=isReplyTo(message.id))
 
 @admin_labeler.message(AsyaCommandRule(VK_PREFIXES, ["конфиг изменить <parameter> <value>", "настройки изменить <parameter> <value>"]))
