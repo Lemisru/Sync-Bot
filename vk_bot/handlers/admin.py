@@ -32,7 +32,7 @@ async def config_info_handler(message):
         answer += f"{key}= {config_parser["VK"][key]}\n"
     await message.answer(answer, reply_to=isReplyTo(message.id))
 
-@admin_labeler.message(AsyaCommandRule(VK_PREFIXES, ["конфиг изменить <parameter> <value>", "настройка изменить <parameter> <value>"]))
+@admin_labeler.message(AsyaCommandRule(VK_PREFIXES, ["конфиг изменить <parameter> <value>", "настройки изменить <parameter> <value>"]))
 async def config_change_handler(message, parameter, value):
     if not isAdmin(message.from_id):
         await message.answer("Без админки хуй тебе", reply_to=isReplyTo(message.id))

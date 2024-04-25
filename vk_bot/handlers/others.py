@@ -36,8 +36,16 @@ async def zov_handler(message, text):
 async def randint_handler(message, num1, num2):
     await message.answer(random.randint(num1, num2), reply_to=isReplyTo(message.id))
 
-@others_labeler.message(AsyaCommandRule(VK_PREFIXES, ["выбери из <text>"]))
+@others_labeler.message(AsyaCommandRule(VK_PREFIXES, ["выбери из <text>", "выбери <text>"]))
 async def randint_handler(message, text):
     text_list = text.split(",")
     word = random.choice(text_list)
     await message.answer(f"Я выберу: {word}", reply_to=isReplyTo(message.id))
+
+@others_labeler.message(AsyaCommandRule(VK_PREFIXES, ["данет <text>", 'магический шар <text>']))
+async def randint_handler(message, text):
+    phrases = ['Ещё как', 'Очень вероятно', 'Мало шансов', 'Есть сомнения', 
+               'Спроси позже','Нет','Да','Духи говорят да','Непонятно',
+               'Без сомнений','Возможно','Думаю нет','Думаю да']
+    
+    await message.answer(random.choice(phrases), reply_to=isReplyTo(message.id))
