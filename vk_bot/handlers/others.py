@@ -10,7 +10,7 @@ others_labeler = BotLabeler()
 @others_labeler.message(AsyaCommandRule(VK_PREFIXES, ["помощь", "команды"]))
 async def others_handler(message):
     answer =  "⚙ Полный список команд доступен по ссылке: https://vk.com/@async_bot-commands"
-    await message.answer(answer, reply_to=isReplyTo(message.id))
+    await message.answer(answer, reply_to=isReplyTo(message.id), attachment="https://vk.com/@async_bot-commands")
 
 @others_labeler.message(AsyaCommandRule(VK_PREFIXES, "пинг"))
 async def others_handler(message):
@@ -43,15 +43,16 @@ async def magic_ball_handler(message, text):
    
    await message.answer(random.choice(phrases), reply_to=isReplyTo(message.id))
 
-@others_labeler.message(AsyaCommandRule(VK_PREFIXES, ["выбери число от <num1> до <num2>", "число от <num1> до <num2:int>"]))
+@others_labeler.message(AsyaCommandRule(VK_PREFIXES, ["выбери число от <num1:int> до <num2:int>", "число от <num1:int> до <num2:int>"]))
 async def random_number_handler(message, num1, num2):
-   await message.answer(random.randint(f"Число: {random.randint(num1, num2)}"), reply_to=isReplyTo(message.id))
+   new_number = random.randint(num1,num2)
+   await message.answer(f"Число: {new_number}", reply_to=isReplyTo(message.id))
 
 @others_labeler.message(AsyaCommandRule(VK_PREFIXES, ["выбери из <text>", "фраза из <text>",
                                                       "выбери слово из <text>", "выбери из перечисленного: <text>"]))
 async def phrase_choice_handler(message, text):
    new_text = text.split(",")
-   await message.answer(random.randint(f"Я выберу: {random.choice(text.split(","))}"), reply_to=isReplyTo(message.id))
+   await message.answer(f"Я выберу: {new_text}", reply_to=isReplyTo(message.id))
 
 
 
