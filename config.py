@@ -3,8 +3,9 @@ from vkbottle.bot import BotLabeler
 
 import configparser
 
-config_parser = configparser.ConfigParser()
 labeler = BotLabeler()
+
+config_parser = configparser.ConfigParser()
 
 config_parser.read("config.ini")
 
