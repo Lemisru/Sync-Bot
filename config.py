@@ -1,17 +1,29 @@
 from vkbottle import API
 from vkbottle.bot import BotLabeler
 
-import configparser
+from environs import Env
+
+env = Env()
+env.read_env()
 
 labeler = BotLabeler()
 
-config_parser = configparser.ConfigParser()
+class Config:
+    VK_API = API(env('VK_TOKEN'))
+    DB_FILE = env("DATABASE")
+    VK_PREFIXES = env('VK_PREFIXES')
 
-config_parser.read("config.ini")
+    REPLY_TO = bool(int(env('REPLY_TO')))
+    config_change_lvl = env('config_change_level')
+    professions_add_level = env('professions_add_level')
 
-API = API(config_parser["VK"]["token"])
-VK_PREFIXES = config_parser["VK"]["prefixes"]
-REPLY_TO = bool(int((config_parser["VK"]["reply_to"])))
-PROFESSIONS = config_parser["VK"]["professions"]
-REACTIONS = config_parser["VK"]["reactions"]
-ARTICLES = config_parser["VK"]["articles"]
+    def __str__(self):
+        result = (
+            f"Конфиг\n"
+            f"  Изменение конфига: {self.config_change_lvl}-й лвл\n"
+            f"Профессии\n"
+            f"  Добавление профессий: {self.professions_add_level}-й лвл\n"
+
+        )
+        return result
+    

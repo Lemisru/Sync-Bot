@@ -1,27 +1,15 @@
 from vkbottle.bot import Bot
 
-from config import *
+from config import Config, labeler
 
-import vk_bot.handlers.admin as admin
-
-import vk_bot.handlers.reactions as reactions
-import vk_bot.handlers.articles as articles
-import vk_bot.handlers.professions as professions
-import vk_bot.handlers.others as others
+from vk_bot.handlers import *
 
 from loguru import logger
 import sys
 logger.remove()
 logger.add(sys.stderr, level="INFO")
 
-labeler.load(admin.admin_labeler)
-
-labeler.load(reactions.reactions_labeler)
-labeler.load(professions.professions_labeler)
-labeler.load(articles.articles_labeler)
-labeler.load(others.others_labeler)
-
-bot = Bot(api=API, labeler=labeler)
+bot = Bot(api=Config().VK_API, labeler=labeler)
 
 def getBot():
     global bot

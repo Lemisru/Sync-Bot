@@ -1,7 +1,7 @@
 from vk_bot.AsyaCommandRule import AsyaCommandRule
 from vkbottle.bot import BotLabeler
 
-from config import VK_PREFIXES
+from config import Config
 from vk_bot.isReplyTo import isReplyTo
 
 import random
@@ -18,7 +18,7 @@ stickers = set()
 for interval in stickers_intervals:
     stickers.update(range(interval[0], interval[1]))
 
-@reactions_labeler.message(AsyaCommandRule(VK_PREFIXES, ["реакция", "стикер", "эмодзи", "смайлик", "смайл"]))
+@reactions_labeler.message(AsyaCommandRule(Config().VK_PREFIXES, ["реакция", "стикер", "эмодзи", "смайлик", "смайл"]))
 async def reactions_handler(message):
     sticker = random.choice(list(stickers))
 
