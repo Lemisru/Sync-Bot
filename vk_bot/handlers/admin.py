@@ -18,8 +18,9 @@ def getUserRank(user_id):
 
 @admin_labeler.message(AsyaCommandRule(Config().VK_PREFIXES, ["конфиг инфа", "настройки инфа", "админка инфа", "админ инфа"]))
 async def config_info_handler(message):
-    pass
+    return str(Config())
 
-@admin_labeler.message(AsyaCommandRule(Config().VK_PREFIXES, ["конфиг инфа", "настройки инфа", "админка инфа", "админ инфа"]))
-async def config_info_handler(message):
-    answer =f"config_change_level: :\n"
+@admin_labeler.message(AsyaCommandRule(Config().VK_PREFIXES, ["дк <parameter> <level>"]))
+async def config_info_handler(message, parameter, value):
+    
+    return str(Config())

@@ -35,7 +35,7 @@ def createMessage(user, user_id, type, article_list) -> str:
         user_name = f"{user[0].first_name} {user[0].last_name}"
 
     ping = f"[id{user_id}|{user_name}]"
-    answer = (f"🤷‍♂Сегодня {ping} \n"
+    answer = (f"🤷‍♂Сегодня {ping} "
               f"приговаривается к статье {num} {type} - {text}\n\n"
               f"👮‍♂Наказание{punishment}.\n\n" 
               f"🎆Мусора бляди!✨🎉")

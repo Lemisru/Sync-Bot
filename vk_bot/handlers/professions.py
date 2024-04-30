@@ -30,3 +30,17 @@ async def professions_handler(message):
 
 
     await message.answer(answer, reply_to=isReplyTo(message.id))
+
+@professions_labeler.message(AsyaCommandRule(Config().VK_PREFIXES, ['профессия добавить <profession>', 'добавить профессию <profession>',
+                                                                    'работа добавить <profession', 'добавить работу <profession>']))
+async def professions_add_handler(message):
+    permission_level = Config().permissions['professions']['add']
+    user_rank = getUserRank(message.from_id)
+    if user_rank < permission_level:
+        answer = (
+            f"📝Для добавления профессии нужен {permission_level}-й ранг админки\n"
+            f"У вас - {user_rank}-й"
+        )
+        await message.answer(answer, reply_to=isReplyTo(message.id))
+
+    ...
