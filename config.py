@@ -9,6 +9,23 @@ env.read_env()
 labeler = BotLabeler()
 
 class Config():
+    """Class for managing configuration settings.
+    
+    Parameters
+    ----------
+    VK_API (API): VK Bot API token.
+    DB_FILE (str): Database file path.
+    VK_PREFIXES (str): Prefixes for VK Bot commands.
+    REPLY_TO (bool): Will the bot respond to messages.
+    permissions (dict): Dictionary of permissions levels for different actions.
+        'config_change' (int): Level for changing configuration settings.
+        'professions' (dict): Dictionary of permissions for module professions.
+            'add' (int): Add a profession.
+
+    Methods
+    ----------
+    str: Returns the permissions tree string
+    """
     VK_API = API(env('VK_TOKEN'))
     DB_FILE = env("DATABASE")
     VK_PREFIXES = env('VK_PREFIXES')

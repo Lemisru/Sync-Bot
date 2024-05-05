@@ -45,6 +45,7 @@ class ProfessionsHandler():
         self.session = session
 
     def get_professions(self) -> List[Professions_Table]:
+        professions_list = self.session.query(Professions_Table).all()
         return self.session.query(Professions_Table).all()
     
     def _add_profession(self, profession: Union[str, List[str]]) -> bool:
@@ -83,7 +84,7 @@ database = DatabaseHandler("data.db")
 
 if __name__ == '__main__':
     #database.update_user('480980237', name="Лемис")
-    #database.professions.add_profession('Минетчик')
+    #database.professions.add_profession('Минометчик')
 
     with open('data/professions.txt', 'r') as f:
         professions = [line.strip() for line in f]

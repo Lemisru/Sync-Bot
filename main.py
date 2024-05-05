@@ -1,4 +1,4 @@
-from vk_bot.vk_bot import *
+from vk_bot.vk import *
 
 if __name__ == "__main__":
     vk_start()

@@ -1,7 +1,7 @@
 from vk_bot.AsyaCommandRule import AsyaCommandRule
 from vkbottle.bot import BotLabeler
 
-from vk_bot import vk_bot
+from vk_bot import vk
 
 from config import Config 
 from data import database
@@ -22,14 +22,13 @@ def getArticlesData(file_path: str) -> list:
     return output
 
 def createMessage(user, user_id, type, article_list) -> str:
-    user_data = database.get_user_by_id(user_id)
+    user_data = database.users.get_user_by_id(user_id)
     num, text, punishment = article_list
 
     user_name = None
     if user_data is not None:
         if user_data.name is not None:
             user_name = user_data.name
-            print(user_name)
     
     if user_name is None:
         user_name = f"{user[0].first_name} {user[0].last_name}"
@@ -46,7 +45,7 @@ code_types = {"🚗ПДД РФ🚗": "data/articles/pdd.txt", "УК РФ": "data
 
 @articles_labeler.message(AsyaCommandRule(Config().VK_PREFIXES, ["моя статья", "статья", "наказание", "мое наказание"]))
 async def articles_handler(message):
-    user = await vk_bot.bot.api.users.get(message.from_id)
+    user = await vk.bot.api.users.get(message.from_id)
 
     code_type = random.choice(list(code_types))
     link = code_types[code_type]
@@ -58,7 +57,7 @@ async def articles_handler(message):
 
 @articles_labeler.message(AsyaCommandRule(Config().VK_PREFIXES, ["моя статья ук", "статья ук", "наказание ук", "мое наказание ук"]))
 async def pdd_articles_handler(message):
-    user = await vk_bot.bot.api.users.get(message.from_id)
+    user = await vk.bot.api.users.get(message.from_id)
 
     link = code_types["УК РФ"]
 
@@ -72,7 +71,7 @@ async def pdd_articles_handler(message):
                                                                  "наказание пдд", "мое наказание пдд"]))
 
 async def uk_articles_handler(message):
-    user = await vk_bot.bot.api.users.get(message.from_id)
+    user = await vk.bot.api.users.get(message.from_id)
 
     link = code_types['🚗ПДД РФ🚗']
 
