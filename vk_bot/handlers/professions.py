@@ -1,14 +1,14 @@
+import random
+
 from vk_bot.AsyaCommandRule import AsyaCommandRule
 from vkbottle.bot import BotLabeler
 
 from config import Config
 from data import database
 
-from vk_bot.isReplyTo import isReplyTo
+from vk_bot.ping_utils import isReplyTo, getPing
 
 from vk_bot.handlers.admin import getUserRank
-
-import random
 
 import vk_bot.vk as vk
 
@@ -22,7 +22,7 @@ graphics = ["График '2 через 2'", "Скользящий график"
 async def professions_handler(message):
     user = await vk.getBot().api.users.get(message.from_id)
     profession = random.choice(professions.get_professions()).profession
-    answer = (f"✅Сегодня [id{message.from_id}|{user[0].first_name} {user[0].last_name}]"
+    answer = (f"✅Сегодня {getPing(message, user)} "
               f"устроился на новую работу👷‍♂: \n\n"
               f"{profession}!\n\n"
               f"💰Зарплата {random.randint(1,40)*5} 000₽/мес.\n"

@@ -2,7 +2,7 @@ from vk_bot.AsyaCommandRule import AsyaCommandRule
 from vkbottle.bot import BotLabeler
 
 from config import Config
-from vk_bot.isReplyTo import isReplyTo
+from vk_bot.ping_utils import isReplyTo
 import vk_bot.vk as vk
 
 from g4f.client import Client
@@ -21,7 +21,6 @@ async def chatgpt_handler(message, text):
     answer = response.choices[0].message.content
 
     await message.answer(answer, reply_to=isReplyTo(message.id))
-
 
 @chatgpt_labeler.message(AsyaCommandRule(Config().VK_PREFIXES, ["история"]))
 async def chatgpt_emoji_handler(message):

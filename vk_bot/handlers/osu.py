@@ -2,7 +2,7 @@ from vk_bot.AsyaCommandRule import AsyaCommandRule
 from vkbottle.bot import BotLabeler
 
 from config import Config
-from vk_bot.isReplyTo import isReplyTo
+from vk_bot.ping_utils import isReplyTo
 
 from ossapi import Ossapi, Scope
 
